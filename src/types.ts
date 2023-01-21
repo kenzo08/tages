@@ -1,4 +1,4 @@
-export interface ProductDataType  {
+export interface IProductDataType  {
     id: string;
     name: string;
     code: string | null;
@@ -7,9 +7,15 @@ export interface ProductDataType  {
     material: number;
 }
 
-export type SelectOption = {
-    id?: number | string;
-    label: string | number;
-    value: string | number;
-    [x: string]: any;
-};
+export interface IProductCard {
+    id: string;
+    name: string;
+    code: string | null;
+    imgUrl: string;
+    oldPrice: number | null;
+    currentPrice: number;
+    material: number;
+    isInBasket: boolean;
+    isInFavourite: boolean;
+
+}

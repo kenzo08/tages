@@ -1,44 +1,16 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import axios from "axios";
-import {ProductDataType} from "../../types";
+import {useStore} from "vuex";
+import {computed, onMounted} from "vue";
 import ProductCard from '../ProductCard.vue';
 import ProductFilter from "../ProductFilter.vue";
 
-interface IProductData {
-  id: string;
-  name: string;
-  code: string | null;
-  imgUrl: string;
-  oldPrice: number | null;
-  currentPrice: number;
-  material: number;
 
-}
+const store = useStore();
+const productsData = computed(()=>store.getters.getProducts);
 
-const productsData = ref<IProductData[]>([])
-
-axios.get('/mock-data/items.json')
-    .then((response) => {
-      response.data.map((i: ProductDataType) => {
-        return productsData?.value.push(
-            {
-              id: i.id,
-              name: i.name,
-              code: i.code,
-              oldPrice: i.price.old_price,
-              currentPrice: i.price.current_price,
-              imgUrl: i.image.url,
-              material: i.material
-
-            }
-        )
-      })
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-
+onMounted(()=>{
+  store.dispatch('getProducts');
+});
 </script>
 
 <template>
@@ -46,11 +18,14 @@ axios.get('/mock-data/items.json')
   <ProductFilter/>
   <div :class="$style.products">
     <ProductCard v-for="product in productsData"
-                 :title="product.name"
+                 :id="product.id"
+                 :name="product.name"
                  :code="product.code"
-                 :imgLink="product.imgUrl"
+                 :imgUrl="product.imgUrl"
                  :currentPrice="product.currentPrice"
                  :oldPrice="product.oldPrice"
+                 :isInBasket="product.isInBasket"
+                 :isInFavourites="product.isInFavourite"
                  :key="product.id"
     />
   </div>
