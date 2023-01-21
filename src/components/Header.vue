@@ -57,9 +57,11 @@ const navLinks = [
 
 <style module>
 .header {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #ffffff;
 }
 
 ul {
@@ -72,5 +74,27 @@ ul {
 
 .amount_product {
   color: #EB5757;
+}
+
+
+@media (max-width: 640px) {
+  .header{
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    padding: 10px;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+  }
+
+  li{
+    font-size: 12px;
+  }
 }
 </style>

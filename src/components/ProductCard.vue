@@ -145,4 +145,23 @@ const addToFavourite = (product: Props) => {
 .removeFavour {
   background-color: transparent;
 }
+
+@media (max-width: 640px) {
+  .img {
+    width: 108px;
+    height: 107px;
+    margin: 0 49px;
+  }
+
+  .product_card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 10px 0;
+    border: solid 1px gray;
+  }
+}
 </style>

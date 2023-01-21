@@ -6,6 +6,7 @@ import {IProductCard, IProductDataType} from "../types";
 const store = createStore({
     state: {
         products: <IProductCard[]>[],
+        filteredProducts: <IProductCard[]>[],
         basket: <IProductCard[]>[],
         favourites: <IProductCard[]>[],
         amountOfFavouritesProducts: <number>0,
@@ -14,6 +15,10 @@ const store = createStore({
 
 
     getters: {
+        getFiltered: state => {
+            return state.filteredProducts;
+        },
+
         getProducts: state => {
             return state.products;
         },
@@ -40,7 +45,7 @@ const store = createStore({
                     oldPrice: product.price.old_price,
                     currentPrice: product.price.current_price,
                     isInBasket: false,
-                    isInFavourite:false,
+                    isInFavourite: false,
                 })
             })
         },
@@ -84,6 +89,20 @@ const store = createStore({
                 }
             })
             state.amountOfFavouritesProducts = state.favourites.length
+        },
+
+        sortDataByPrice(state, sortType: string) {
+            if(sortType ==='cheaper'){
+                (state.filteredProducts.length ? state.filteredProducts : state.products).sort((a, b) => (Number(a.currentPrice) > Number(b.currentPrice) ? 1 : -1));
+            }else {
+                (state.filteredProducts.length ? state.filteredProducts : state.products).sort((a, b) => (Number(a.currentPrice) > Number(b.currentPrice) ? -1 : 1));
+            }
+
+        },
+
+        filterByMaterial(state, material) {
+            state.filteredProducts = state.products;
+            state.filteredProducts = state.filteredProducts.filter(el => el.material == material)
         }
 
     },
@@ -116,6 +135,14 @@ const store = createStore({
         removeProductFromFavourite({commit}, id) {
             commit('removeProductFromFavourite', id)
         },
+
+        sortData({commit}, products) {
+            commit('sortDataByPrice', products)
+        },
+
+        filterByMaterial({commit}, material) {
+            commit('filterByMaterial', material)
+        }
     },
     modules: {}
 });
