@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useStore} from "vuex";
-import {computed, ref} from "vue";
+import {computed} from "vue";
 import ProductCard from '../ProductCard.vue';
 
 const store = useStore();
@@ -11,7 +11,7 @@ console.log(1, basketData.value)
 
 <template>
   <h1>Корзина товаров</h1>
-  <div :class="$style.products">
+  <div v-if="basketData.length" :class="$style.products">
     <ProductCard v-for="product in basketData"
                  :id="product.id"
                  :name="product.name"
@@ -20,10 +20,11 @@ console.log(1, basketData.value)
                  :currentPrice="product.currentPrice"
                  :oldPrice="product.oldPrice"
                  :isInBasket="product.isInBasket"
-                 :isInFavourites="product.isInFavourite"
+                 :isInFavourites="product.isInFavourites"
                  :key="product.id"
     />
   </div>
+  <span v-else :class="$style.empty">Вы еще не добавили товары в корзину</span>
 </template>
 
 <style module>
@@ -33,6 +34,13 @@ console.log(1, basketData.value)
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin-top: 41px;
+}
+
+.empty{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 280px 0;
 }
 
 @media (max-width: 1280px) {

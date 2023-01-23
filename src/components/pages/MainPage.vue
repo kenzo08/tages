@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useStore} from "vuex";
-import {computed, onMounted, reactive, ref} from "vue";
+import {computed, onMounted} from "vue";
 import ProductCard from '../ProductCard.vue';
 import ProductFilter from "../ProductFilter.vue";
 
@@ -34,7 +34,7 @@ onMounted(()=>{
                  :currentPrice="product.currentPrice"
                  :oldPrice="product.oldPrice"
                  :isInBasket="product.isInBasket"
-                 :isInFavourites="product.isInFavourite"
+                 :isInFavourites="product.isInFavourites"
                  :key="product.id"
     />
   </div>

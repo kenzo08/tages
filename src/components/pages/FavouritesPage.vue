@@ -9,7 +9,7 @@ const favourites = computed(()=>store.getters.getFavourite)
 
 <template>
 <h1>Избранные товары</h1>
-  <div :class="$style.products">
+  <div v-if="favourites.length" :class="$style.products">
     <ProductCard v-for="product in favourites"
                  :id="product.id"
                  :name="product.name"
@@ -22,6 +22,7 @@ const favourites = computed(()=>store.getters.getFavourite)
                  :key="product.id"
     />
   </div>
+  <span v-else :class="$style.empty">Вы еще не добавили товары в избранные</span>
 </template>
 
 <style module>
@@ -33,13 +34,11 @@ const favourites = computed(()=>store.getters.getFavourite)
   margin-top: 41px;
 }
 
-
-.products{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  margin-top: 41px;
+.empty{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 280px 0;
 }
 
 @media (max-width: 1280px) {

@@ -2,8 +2,7 @@
 import {useStore} from "vuex";
 import {computed} from "vue";
 import TagesIcon from '../../public/svg/tages.svg';
-import CartSvg from '../../public/svg/cart.svg';
-import HeartSvg from '../../public/svg/heart.svg';
+
 
 
 const store = useStore();
