@@ -128,6 +128,7 @@ const addToFavourite = (product: Props) => {
 
 .old_price {
   text-decoration: line-through;
+  color: #808080;
 }
 
 .title {
