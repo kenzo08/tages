@@ -12,7 +12,7 @@
 <script setup lang="ts">
 interface Props{
   modelValue: string;
-  options: [];
+  options: [{label: string, value: string|number}];
 }
 
 defineProps<Props>()
