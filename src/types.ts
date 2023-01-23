@@ -16,6 +16,6 @@ export interface IProductCard {
     currentPrice: number;
     material: number;
     isInBasket: boolean;
-    isInFavourite: boolean;
+    isInFavourites: boolean;
 
 }

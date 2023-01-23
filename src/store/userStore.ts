@@ -1,7 +1,11 @@
 import {createStore} from "vuex";
 import axios from "axios";
 import {IProductCard, IProductDataType} from "../types";
+import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
 
+
+const ls = new SecureLS({isCompression: false});
 
 const store = createStore({
     state: {
@@ -12,6 +16,17 @@ const store = createStore({
         amountOfFavouritesProducts: <number>0,
         amountOfBasketProducts: <number>0
     },
+
+    plugins: [
+        createPersistedState({
+            // paths: ['basket'],
+            storage: {
+                getItem: (key) => ls.get(key),
+                setItem: (key, value) => ls.set(key, value),
+                removeItem: (key) => ls.remove(key),
+            },
+        }),
+    ],
 
 
     getters: {
@@ -45,7 +60,7 @@ const store = createStore({
                     oldPrice: product.price.old_price,
                     currentPrice: product.price.current_price,
                     isInBasket: false,
-                    isInFavourite: false,
+                    isInFavourites: false,
                 })
             })
         },
@@ -64,17 +79,17 @@ const store = createStore({
             state.favourites.push(product);
             state.products.map((p) => {
                 if (p.id === product.id) {
-                    p.isInFavourite = true
+                    p.isInFavourites = true
                 }
                 state.amountOfFavouritesProducts = state.favourites.length
             })
 
         },
 
-        removeProductFromBasket(state, id) {
+        removeProductFromBasket(state, id: string) {
             state.basket = state.basket.filter((p) => p.id != id)
             state.products.map((p) => {
-                if (p.id == id) {
+                if (p.id === id) {
                     p.isInBasket = false
                 }
             })
@@ -85,16 +100,16 @@ const store = createStore({
             state.favourites = state.favourites.filter((p) => p.id != id)
             state.products.map((p) => {
                 if (p.id == id) {
-                    p.isInFavourite = false
+                    p.isInFavourites = false
                 }
             })
             state.amountOfFavouritesProducts = state.favourites.length
         },
 
         sortDataByPrice(state, sortType: string) {
-            if(sortType ==='cheaper'){
+            if (sortType === 'cheaper') {
                 (state.filteredProducts.length ? state.filteredProducts : state.products).sort((a, b) => (Number(a.currentPrice) > Number(b.currentPrice) ? 1 : -1));
-            }else {
+            } else {
                 (state.filteredProducts.length ? state.filteredProducts : state.products).sort((a, b) => (Number(a.currentPrice) > Number(b.currentPrice) ? -1 : 1));
             }
 

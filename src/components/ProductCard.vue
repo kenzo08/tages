@@ -164,4 +164,25 @@ const addToFavourite = (product: Props) => {
     border: solid 1px gray;
   }
 }
+
+
+@media (max-width: 720px){
+  .img {
+    width: 108px;
+    height: 107px;
+    margin: 0 49px;
+  }
+
+  .product_card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 10px 0;
+    border: solid 1px gray;
+  }
+}
+
 </style>

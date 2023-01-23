@@ -18,7 +18,7 @@ const favourites = computed(()=>store.getters.getFavourite)
                  :currentPrice="product.currentPrice"
                  :oldPrice="product.oldPrice"
                  :isInBasket="product.isInBasket"
-                 :isInFavourites="product.isInFavourite"
+                 :isInFavourites="product.isInFavourites"
                  :key="product.id"
     />
   </div>
@@ -31,5 +31,43 @@ const favourites = computed(()=>store.getters.getFavourite)
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin-top: 41px;
+}
+
+
+.products{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-top: 41px;
+}
+
+@media (max-width: 1280px) {
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-top: 41px;
+  }
+}
+@media (max-width: 720px) {
+  .products{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-top: 41px;
+  }
+}
+
+@media (max-width: 640px) {
+  .products{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-top: 41px;
+  }
 }
 </style>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {useStore} from "vuex";
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import ProductCard from '../ProductCard.vue';
 
 const store = useStore();
 const basketData = computed(()=>store.getters.getBasket)
+
+console.log(1, basketData.value)
 </script>
 
 <template>
@@ -31,5 +33,34 @@ const basketData = computed(()=>store.getters.getBasket)
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin-top: 41px;
+}
+
+@media (max-width: 1280px) {
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-top: 41px;
+  }
+}
+@media (max-width: 720px) {
+  .products{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-top: 41px;
+  }
+}
+
+@media (max-width: 640px) {
+  .products{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-top: 41px;
+  }
 }
 </style>
