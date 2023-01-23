@@ -3,6 +3,7 @@ import CartSvg from '../../public/svg/cart.svg';
 import HeartSvg from '../../public/svg/heart.svg';
 import CheckedSvg from '../../public/svg/circle-checked.svg';
 import {useStore} from "vuex";
+import {useRoute} from "vue-router";
 
 interface Props {
   id: string;
@@ -17,6 +18,8 @@ interface Props {
 
 defineProps<Props>();
 const store = useStore()
+const route = useRoute();
+
 const addToBasket = (product: Props) => {
   product.isInBasket = true
   store.dispatch('addProductToBasket', product)
@@ -54,10 +57,14 @@ const addToFavourite = (product: Props) => {
         </div>
       </div>
       <div :class="$style['nav_btn_box']">
-        <CartSvg v-if="!isInBasket" @click="addToBasket({id, code, name, oldPrice, currentPrice, imgUrl, isInBasket})"/>
-        <CheckedSvg v-else @click="removeProductFormBasket(id)"/>
-        <HeartSvg :class="isInFavourites ? $style.activeFavour : $style.removeFavour "
-                  @click="()=>isInFavourites ? removeProductFromFavourite(id) : addToFavourite({id, code, name, oldPrice, currentPrice, imgUrl, isInFavourites, isInBasket})"/>
+        <div v-if="route.name!=='Favourites'">
+          <CartSvg v-if="!isInBasket" @click="addToBasket({id, code, name, oldPrice, currentPrice, imgUrl, isInBasket})"/>
+          <CheckedSvg v-else @click="removeProductFormBasket(id)"/>
+        </div>
+        <div v-if="route.name!=='Basket'">
+          <HeartSvg :class="isInFavourites ? $style.activeFavour : $style.removeFavour "
+                    @click="()=>isInFavourites ? removeProductFromFavourite(id) : addToFavourite({id, code, name, oldPrice, currentPrice, imgUrl, isInFavourites, isInBasket})"/>
+        </div>
       </div>
     </div>
   </div>
